@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "testdevspace.fullname" . }}-php
+  labels:
+    app: {{ template "testdevspace.fullname" . }}-php
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "testdevspace.fullname" . }}-php
+  template:
+    metadata:
+      labels:
+        app: {{ template "testdevspace.fullname" . }}-php
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-php
+          image: "{{ .Values.php.image.repository }}{{- if .Values.php.image.tag }}:{{ .Values.php.image.tag }}{{- end }}"
+          imagePullPolicy: {{ .Values.php.image.pullPolicy }}
+          ports:
+            - containerPort: 9000

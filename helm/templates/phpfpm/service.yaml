@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "testdevspace.fullname" . }}-php
+  labels:
+    app: {{ template "testdevspace.fullname" . }}-php
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9000
+  selector:
+    app: {{ template "testdevspace.fullname" . }}-php

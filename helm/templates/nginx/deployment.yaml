@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "testdevspace.fullname" . }}-nginx
+  labels:
+    app: {{ template "testdevspace.fullname" . }}-nginx
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "testdevspace.fullname" . }}-nginx
+  template:
+    metadata:
+      labels:
+        app: {{ template "testdevspace.fullname" . }}-nginx
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-nginx
+          image: "{{ .Values.nginx.image.repository }}{{- if .Values.nginx.image.tag }}:{{ .Values.nginx.image.tag }}{{- end }}"
+          imagePullPolicy: {{ .Values.nginx.image.pullPolicy }}
+          ports:
+            - containerPort: 8000

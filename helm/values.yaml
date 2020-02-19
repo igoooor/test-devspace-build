@@ -1,0 +1,11 @@
+nginx:
+  image:
+    repository: test-devspace/nginx
+    tag: latest
+    pullPolicy: Always
+
+php:
+  image:
+    repository: test-devspace/php
+    tag: latest
+    pullPolicy: Always
